@@ -71,8 +71,10 @@ def expense_tracker():
     # printing summary
     elif args.command == "summary":
         if args.month == None:
-            total_sum = sum(expenses["Amount"])
-            print()
+            total_sum = 0
+            for expense in expenses:
+                total_sum += sum(expense["Amount"])
+            print(total_sum)
 
 
 expense_tracker()
