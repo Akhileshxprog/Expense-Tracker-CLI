@@ -63,7 +63,16 @@ def expense_tracker():
 
     # listing/printing all expenses
     elif args.command == "list":
-        print(expenses)
+        if len(expenses) != 0:
+            print(expenses)
+        else:
+            print("Expenses file is empty")
+
+    # printing summary
+    elif args.command == "summary":
+        if args.month == None:
+            total_sum = sum(expenses["Amount"])
+            print()
 
 
 expense_tracker()
