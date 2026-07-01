@@ -35,13 +35,19 @@ def expense_tracker():
     add_parser.add_argument("--description")
     add_parser.add_argument("--amount", type=float)
 
-    # "list" adding functionality
+    # "list" adding functionality for viewing all expenses
+    list_parser = subparser.add_parser("list")
+
+    # "summary" adding functionality for viewing summary of all expenses
+    summary_parser = subparser.add_parser("summary")
+    summary_parser.add_argument("--month", nargs="?")
 
     args = parser.parse_args()
 
     # setting the load_expenses() to expenses
     expenses = load_expenses()
 
+    # adding expense
     if args.command == "add":
         expense_data = {
             "ID": 1,
@@ -52,9 +58,12 @@ def expense_tracker():
         expenses.append(expense_data)
         print("Expense Added")
         save_expense(expenses)
+    # printing the expenses
         print(expenses)
 
+    # listing/printing all expenses
     elif args.command == "list":
+        print(expenses)
 
 
 expense_tracker()
