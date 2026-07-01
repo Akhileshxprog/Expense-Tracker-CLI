@@ -8,6 +8,7 @@ def save_expense(expenses):
     with open("expense.csv", "w", newline="") as file:
         fieldname = ["ID", "Date", "Description", "Amount"]
         csv_write = csv.DictWriter(file, fieldnames=fieldname)
+        csv_write.writeheader()
         csv_write.writerows(expenses)
 
 # Loading Expenses if expenses file is empty, returns  nothing
@@ -29,13 +30,16 @@ def expense_tracker():
     parser = argparse.ArgumentParser(description="Expense Tracker CLI")
     subparser = parser.add_subparsers(dest="command")
 
-    # "add" adding functionallity for adding expense from terminal
+    # "add" adding functionality for adding expense from terminal
     add_parser = subparser.add_parser("add")
     add_parser.add_argument("--description")
     add_parser.add_argument("--amount", type=float)
 
+    # "list" adding functionality
+
     args = parser.parse_args()
 
+    # setting the load_expenses() to expenses
     expenses = load_expenses()
 
     if args.command == "add":
@@ -48,5 +52,9 @@ def expense_tracker():
         expenses.append(expense_data)
         print("Expense Added")
         save_expense(expenses)
+        print(expenses)
+
+    elif args.command == "list":
+
 
 expense_tracker()
